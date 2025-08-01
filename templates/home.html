@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='/logo.png') }}" type="image/x-icon">
+    <title>Term Work Generator</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /*
+        .logo {
+            width: 80px;
+            margin-bottom: 10px;
+            border-radius : 5px;
+        }
+        */
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            background: #0056b3;
+        }
+
+        .dynamic-fields {
+            margin-top: 20px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #666;
+        }
+
+
+         /* Cropped Image Container */
+         .cropped-container {
+            width: 100px;  /* Set desired cropped width */
+            height: 100px; /* Set desired cropped height */
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid #333;
+            border-radius: 100px;
+        }
+
+        .cropped-container img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .cropped-container:hover img {
+            transform: scale(2.1); /* Slight zoom effect on hover */
+        }
+
+        /* Fullscreen Modal */
+        .modal {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        /* Fullscreen Image */
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border: 5px solid #fff;
+            transform: scale(0.8);
+            transition: transform 0.5s ease;
+        }
+
+        /* Show modal with transition */
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal.show img {
+            transform: scale(1);
+        }
+        .logo-container{
+            display: flex;
+            justify-content: center;
+        }
+
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8123206093090331"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="form-container">
+        <div class="logo-container">
+
+            <!-- <img src="{{ url_for('static', filename='/Het.jpg') }}" class="logo" alt="Company Logo"> -->
+            <!-- Cropped Image -->
+           <div class="cropped-container" onclick="openModal()">
+               <img src="{{ url_for('static', filename='/Het.jpg') }}" alt="Cropped Image">
+           </div>
+
+           <!-- Fullscreen Modal -->
+           <div class="modal" id="imageModal" onclick="closeModal()">
+               <img src="{{ url_for('static', filename='/Het.jpg') }}" alt="Full Image">
+           </div>
+        </div>
+
+
+
+        <h1>Created By :- PATEL HET</h1>
+        <h2>Submit Your Information</h2>
+        <p>Enter your information and generate your term work. </p>
+        <form action="" method="post">
+            <div class="form-group">
+                <label for="name">Department : </label>
+                <input type="text" id="department" name="department" readonly>
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Semester:</label>
+                <input type="text" id="name" name="sem" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Batch:</label>
+                <input type="text" id="name" name="batch" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Pen no. :</label>
+                <input type="text" id="name" name="pen" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Subject:</label>
+                <input type="text" id="name" name="subject" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Class:</label>
+                <input type="text" id="name" name="class" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Term:</label>
+                <input type="text" id="name" name="term" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Faculty:</label>
+                <input type="text" id="name" name="faculty" required>
+            </div>
+            <div class="form-group">
+                <label for="numFields">Enter the no. of term work you want and then press Generate Term Work To enter the Practical No. and Aim for every Practical :</label>
+                <input type="number" id="numFields" name="number" placeholder="Enter no. of Term Work" required>
+            </div>
+            <div class="form-group">
+                <button type="button" class="button" id="generateBtn">Generate Term Work Aim</button>
+            </div>
+            <div class="dynamic-fields" id="dynamicFields">
+                <!-- Dynamically generated fields will appear here -->
+            </div>
+            <p><b>Note</b> : Wait for 2-5 seconds after clicking Submit button.</p>
+            <div class="form-group">
+                <button type="submit" class="button" >Submit</button>
+            </div>
+            <h6>© 2025 PATEL HET. All rights reserved.</h6>
+        </form>
+    </div>
+
+
+    <script>
+        function openModal() {
+            document.getElementById('imageModal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').classList.remove('show');
+        }
+    </script>
+
+
+    <script>
+        // Function to get URL parameter by name
+        function getURLParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+        window.onload = function() {
+            // Retrieve the selected option from the URL
+            const selectedOption = getURLParameter('department');
+
+            if (selectedOption) {
+                // Populate the 'selectedOption' field with the value passed from the first page
+                document.getElementById('department').value = selectedOption;
+            }
+        }
+
+
+        const generateBtn = document.getElementById('generateBtn');
+        const dynamicFields = document.getElementById('dynamicFields');
+        const numFieldsInput = document.getElementById('numFields');
+
+        generateBtn.addEventListener('click', () => {
+            // Clear previous fields
+            dynamicFields.innerHTML = '';
+
+            // Get the number of fields to generate
+            const numFields = parseInt(numFieldsInput.value);
+
+            // Validate input
+            if (isNaN(numFields) || numFields < 1) {
+                alert('Please enter a valid number greater than 0.');
+                return;
+            }
+
+            // Generate the fields
+            for (let i = 1; i <= numFields; i++) {
+                const fieldDiv = document.createElement('div');
+                fieldDiv.className = 'form-group';
+
+                const label = document.createElement('label');
+                label.textContent = `For Term Work ${i} :`;
+                label.setAttribute('for', `field${i}`);
+
+                const aim = document.createElement('input');
+                aim.type = 'text';
+                aim.id = `aim${i}`;
+                aim.name = `aim${i}`;
+                aim.placeholder = `Practical Aim`;
+                aim.required = true;
+
+                const no = document.createElement('input');
+                no.type = 'number';
+                no.id = `no${i}`;
+                no.name = `no${i}`;
+                no.placeholder = `Practical No.`;
+                no.required = true;
+
+                fieldDiv.appendChild(label);
+                fieldDiv.appendChild(no);
+                fieldDiv.appendChild(aim);
+                dynamicFields.appendChild(fieldDiv);
+            }
+        });
+    </script>
+</body>
+</html>
